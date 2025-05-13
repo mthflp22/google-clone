@@ -2,9 +2,9 @@
 
 import Image from 'next/image';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { FormEvent, useRef } from 'react';
+import { FormEvent, useRef, Suspense } from 'react';
 
-export default function SearchPage() {
+function SearchResults() {
   const searchInputRef = useRef<HTMLInputElement>(null);
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -75,5 +75,13 @@ export default function SearchPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function SearchPage() {
+  return (
+    <Suspense fallback={<div>Carregando...</div>}>
+      <SearchResults />
+    </Suspense>
   );
 } 
